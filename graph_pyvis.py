@@ -18,14 +18,15 @@ df = pd.DataFrame([
     {'name': 'マスオ', 'child': 'タラオ'},
     {'name': 'サザエ', 'child': 'タラオ'},
 ])
-graph = nx.from_pandas_edgelist(df, source='name', target='child')
+graph = nx.from_pandas_edgelist(df, source='name', target='child', create_using=nx.DiGraph())
 
 height = 400
 html_file_name = 'graph.html'
 
 network = Network(height=f"{height}px", directed=True)
 network.from_nx(graph)
+network.show_buttons()
 network.save_graph(html_file_name)
 
 with Path(html_file_name).open('r') as f:
-    components.html(f.read(), height=height + 10)
+    components.html(f.read(), height=height + 500, scrolling=True)
